@@ -1,0 +1,19 @@
+#city-input {
+  width:100%;
+}
+#search-bttn {
+  width:100%;
+}
+
+.card-header {
+  width:100%;
+}
+
+.col-9 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.hide {
+  display: none;
+}
