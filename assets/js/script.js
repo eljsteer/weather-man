@@ -21,7 +21,7 @@
 const searchBttn = $("#search-bttn");
 
 let cityInputEl = $("#city-input");
-let timeNow = dayjs().format("DD-MM-YYYY HH:mm")
+let timeNow = dayjs().format("dddd DD, MMM, YYYY hh:mm A")
 let apiKey = "c21a2246b95017f0e7609338479f2597";
 // let userLocation = $(".userLoc")
 // const myLocation = $("#my-location")
@@ -92,9 +92,9 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   currentWeatherEl.addClass("card col-9 mx-3");
 
   // Code to display city Name and Time
-  let currentWeatherBody = $("div");
-  let currentCityNameEl = $("h4");
-  let currentTimeEl = $("h4");
+  let currentWeatherBody = $("<div>");
+  let currentCityNameEl = $("<h4>");
+  let currentTimeEl = $("<h5>");
   currentTimeEl.text(timeNow);
   currentCityNameEl.text(currentCityInfo.cityName);
 
