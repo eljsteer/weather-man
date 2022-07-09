@@ -20,12 +20,19 @@
 
 
 const searchBttn = $("#search-bttn");
-const myLocation = $("#my-location")
+
 let cityInputEl = $("#city-input");
 let dt = dayjs().unix();
 let apiKey = "c21a2246b95017f0e7609338479f2597";
-let userLocation = $(".userLoc")
-let cityArray = [];
+let currentWeatherEl = $("#weather-today")
+let currentTimeEl = $("#current-time")
+let cityTodayEl = $("#city-today")
+// let userLocation = $(".userLoc")
+// const myLocation = $("#my-location")
+// let cityArray = [];
+let currentCityInfo = {};
+
+searchBttn.on("click", cityCoordinates);
 
 function cityCoordinates() {
   selectedCity = cityInputEl.val().trim();
@@ -37,30 +44,58 @@ function cityCoordinates() {
     })
     .then(function(data) {
       console.log(data)
-      let lats = data.coord.lat;
-      let longs = data.coord.lon;
-      forecast5DayAPI(lats,longs)
+      
+      let currentCityInfo = {
+        cityName: selectedCity,
+        lats: data.coord.lat,
+        longs: data.coord.lon,
+      };
+      console.log(currentCityInfo);
+
+      weatherData(currentCityInfo);
+      displayWeather(currentCityInfo);
     });
 }
 
   // <======== Code to fetch and display 5day Weather Forecast ========>
-  function forecast5DayAPI (lats,longs) {
-    let day5APIURL = "https://api.openweathermap.org/data/2.5/onecall?lat="+lats+"&lon="+longs+"&exclude=minutely,hourly&appid="+apiKey;
-    
-    fetch (day5APIURL) 
-      .then(function (response) {
-        if(response.status = 200) {
-        return response.json();
+function weatherData(currentCityInfo) {
+  let day5APIURL = "https://api.openweathermap.org/data/2.5/onecall?lat="+currentCityInfo.lats+"&lon="+currentCityInfo.longs+"&units=metric&exclude=minutely,hourly&appid="+apiKey;
+  
+  fetch (day5APIURL) 
+    .then(function (response) {
+      if(response.status = 200) {
+      return response.json();
 
-        } else if(response.status != 200) {
-          response.innerHTML();
-        };
-      })
-      .then(function (data) {
-        console.log(data);
-      });
-    };
+      } else if(response.status != 200) {
+        response.innerHTML();
+      };
+    })
+    .then(function (data) {
+      console.log(data);
+      let dataCurrent = data.current;
+      let dataDaily = data.daily;
+      displayWeather(dataCurrent,dataDaily)
+    });
+};
 
+function displayWeather (dataCurrent, currentCityInfo) {
+  currentCityName = currentCityInfo.cityName;
+  console.log(currentCityName);
+  let currentTime = dataCurrent.dt;
+  let currentTemp = dataCurrent.temp;
+  let currentWindSpd = dataCurrent.wind_speed;
+  let currentWindDirection = dataCurrent.wind_deg;
+  let currentHumidity = dataCurrent.humidity;
+  let currentUVI = dataCurrent.uvi;
+  
+  // let currentWeatherArray = [];
+  // currentWeatherArray.push[currentTemp,currentWindSpd,currentWindDirection,currentHumidity,currentUVI]
 
-
-searchBttn.on("click", cityCoordinates);
+  cityTodayEl.text(currentCityInfo.cityName)
+  
+  $("#current-time")= dayjs(currentTime).format("DD-MM-YYYY HH:mm" )
+  
+  // // Code to append currentTemp
+  // let currentWeatherData = $("li");
+  // currentWeatherData.text("")
+};
