@@ -89,6 +89,7 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   // Bootstrap container Styling for Weather Today 
   let currentWeatherEl = $("#weather-today-header")
   currentWeatherEl.addClass("card col-9 mx-3 row");
+  currentWeatherBody.addClass("card-body")
 
   // Code to display city Name and Time
   let weatherTodayEl = $("<div>");
