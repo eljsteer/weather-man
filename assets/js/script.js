@@ -39,6 +39,7 @@ function cityCoordinates() {
       console.log(data)
       let lats = data.coord.lat;
       let longs = data.coord.lon;
+      forecast5DayAPI(lats,longs)
     });
 }
 
