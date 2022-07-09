@@ -23,9 +23,6 @@ const searchBttn = $("#search-bttn");
 let cityInputEl = $("#city-input");
 let timeNow = dayjs().format("DD-MM-YYYY HH:mm")
 let apiKey = "c21a2246b95017f0e7609338479f2597";
-let currentWeatherEl = $("#weather-today")
-let currentTimeEl = $("#current-time")
-let cityTodayEl = $("#city-today")
 // let userLocation = $(".userLoc")
 // const myLocation = $("#my-location")
 // let cityArray = [];
@@ -77,11 +74,7 @@ function weatherData(currentCityInfo) {
 };
 
 function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
-  console.log(dataCurrent);
-  console.log(currentCityInfo);
   
-  let currentCityName = currentCityInfo.cityName;
-  console.log(currentCityName);
   let currentTime = dataCurrent.dt;
   let currentTemp = dataCurrent.temp;
   let currentWindSpd = dataCurrent.wind_speed;
@@ -92,7 +85,22 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   // let currentWeatherArray = [];
   // currentWeatherArray.push[currentTemp,currentWindSpd,currentWindDirection,currentHumidity,currentUVI]
 
-  cityTodayEl.text(currentCityInfo.cityName)
+  // Code to display Selected Cities Current Weather Today
+
+  // Bootstrap container Styling for Weather Today 
+  let currentWeatherEl = $("#weather-today")
+  currentWeatherEl.addClass("card col-9 mx-3");
+
+  // Code to display city Name and Time
+  let currentWeatherBody = $("div");
+  let currentCityNameEl = $("h4");
+  let currentTimeEl = $("h4");
+  currentTimeEl.text(timeNow);
+  currentCityNameEl.text(currentCityInfo.cityName);
+
+  currentWeatherBody.append(currentCityNameEl);
+  currentWeatherBody.append(currentTimeEl);
+  currentWeatherEl.append(currentWeatherBody);
   
   $("#current-time").text(timeNow);
   
