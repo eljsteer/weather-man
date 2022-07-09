@@ -18,7 +18,6 @@
     // create variables for the card to display each attribute
     // append to Container
 
-
 const searchBttn = $("#search-bttn");
 
 let cityInputEl = $("#city-input");
@@ -45,7 +44,7 @@ function cityCoordinates() {
     .then(function(data) {
       console.log(data)
       
-      let currentCityInfo = {
+      currentCityInfo = {
         cityName: selectedCity,
         lats: data.coord.lat,
         longs: data.coord.lon,
@@ -53,7 +52,6 @@ function cityCoordinates() {
       console.log(currentCityInfo);
 
       weatherData(currentCityInfo);
-      displayWeather(currentCityInfo);
     });
 }
 
@@ -74,12 +72,15 @@ function weatherData(currentCityInfo) {
       console.log(data);
       let dataCurrent = data.current;
       let dataDaily = data.daily;
-      displayWeather(dataCurrent,dataDaily)
+      displayWeather(currentCityInfo, dataCurrent,dataDaily)
     });
 };
 
-function displayWeather (dataCurrent, currentCityInfo) {
-  currentCityName = currentCityInfo.cityName;
+function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
+  console.log(dataCurrent);
+  console.log(currentCityInfo);
+  
+  let currentCityName = currentCityInfo.cityName;
   console.log(currentCityName);
   let currentTime = dataCurrent.dt;
   let currentTemp = dataCurrent.temp;
