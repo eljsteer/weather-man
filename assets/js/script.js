@@ -22,7 +22,7 @@
 const searchBttn = $("#search-bttn");
 
 let cityInputEl = $("#city-input");
-let dt = dayjs().unix();
+let timeNow = dayjs().format("DD-MM-YYYY HH:mm")
 let apiKey = "c21a2246b95017f0e7609338479f2597";
 let currentWeatherEl = $("#weather-today")
 let currentTimeEl = $("#current-time")
@@ -93,7 +93,7 @@ function displayWeather (dataCurrent, currentCityInfo) {
 
   cityTodayEl.text(currentCityInfo.cityName)
   
-  $("#current-time")= dayjs(currentTime).format("DD-MM-YYYY HH:mm" )
+  $("#current-time").text(timeNow);
   
   // // Code to append currentTemp
   // let currentWeatherData = $("li");
