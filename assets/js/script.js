@@ -11,14 +11,30 @@ let currentCityInfo = {};
 let storeCityArray = [];
 
 searchBttn.on("click", cityCoordinates);
-searchHistoryContainer.on("click", searchPastCity);
+
+searchHistoryContainer.on("click", function(event) {
+  console.log(event.target.innerHTML);
+  let pastCitySearch = event.target.innerHTML;
+  cityCoordinates(pastCitySearch);
+});
 
 displaySearchHistory();
 
-function cityCoordinates() {
-  let selectedCity = cityInputEl.val().trim();
-  let cityCoordAPIURL = "https://api.openweathermap.org/data/2.5/weather?q="+selectedCity+"&units=metric&appid="+apiKey;
+function cityCoordinates(pastCitySearch, cityInputEl) {
   
+  function citySearch(pastCitySearch) {
+  if (cityInputEl === null) {
+    selectedCity = pastCitySearch;
+    cityAPICall(selectedCity);
+  } else {
+      selectedCity = cityInputEl.val().trim();
+      cityInputEl.val("");
+      cityAPICall(selectedCity);
+    };  
+  }; citySearch(pastCitySearch);
+    
+  function cityAPICall(selectedCity) {
+    let cityCoordAPIURL = "https://api.openweathermap.org/data/2.5/weather?q="+selectedCity+"&units=metric&appid="+apiKey;
     fetch (cityCoordAPIURL) 
     .then(function (response) {
         return response.json();
@@ -35,7 +51,8 @@ function cityCoordinates() {
 
       weatherData(currentCityInfo);
     });
-}
+  };
+};
 
   // <======== Code to fetch and display 5day Weather Forecast ========>
 function weatherData(currentCityInfo) {
@@ -195,7 +212,7 @@ function storeSearchHistory (currentCityInfo) {
   storeCityArray.push(currentCityInfo);
   localStorage.setItem("searchHistory",JSON.stringify(storeCityArray));
   console.log(storeCityArray);
-  displaySearchHistory();
+  displaySearchHistory(currentCityInfo);
 };
 
 function displaySearchHistory () {
@@ -211,13 +228,8 @@ function displaySearchHistory () {
     searchedCity.addClass("btn btn-outline-info w-100 m-1")
     searchedCity.text(searchedCityArray[i].cityName);
     searchedCity.css({"text-transform":"capitalize"});
-    searchedCity.attr("data-city", currentCityInfo.cityName);
+    searchedCity.attr("data-city", searchedCityArray[i].cityName);
     historyContainer.append(searchedCity);
     };
   };
-};
-
-function searchPastCity(searchedCity) {
-  
-
 };
