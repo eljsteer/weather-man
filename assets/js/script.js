@@ -1,24 +1,5 @@
-// Search Block Section to search weather in different Cities
-// Search Function to access Weather API's Cities
-// Cities Must be saved in Local Storage
-// Weather Results must also be saved in Local Storage
-// Get function to return already searched cities
-
-// Display Weather Today
-// Function to retrieve (to save to variable) or display all weather factors for current day
-// Loop Function to display all information for day.
-
-// Display Weather with forecast 
-  // Retrieve attributes and set against variables
-  // append variables to container.
-
-// Display Weather with a 5 Day forecast 
-  // For loop function
-    // create let variable for each attribute
-    // create variables for the card to display each attribute
-    // append to Container
-
 const searchBttn = $("#search-bttn");
+const searchHistoryContainer = $("#search-history-container");
 
 let cityInputEl = $("#city-input");
 let timeNow = dayjs().format("DD, MMM, YYYY hh:mm A")
@@ -30,11 +11,12 @@ let currentCityInfo = {};
 let storeCityArray = [];
 
 searchBttn.on("click", cityCoordinates);
+searchHistoryContainer.on("click", searchPastCity);
 
 displaySearchHistory();
 
 function cityCoordinates() {
-  selectedCity = cityInputEl.val().trim();
+  let selectedCity = cityInputEl.val().trim();
   let cityCoordAPIURL = "https://api.openweathermap.org/data/2.5/weather?q="+selectedCity+"&units=metric&appid="+apiKey;
   
     fetch (cityCoordAPIURL) 
@@ -116,27 +98,27 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
 
   // Code to Display currentTemp
   let currentTempEl = $("<div>");
-  currentTempEl.text(`Temperature: ${currentTemp}℃`)
+  currentTempEl.text(`Temperature: ${currentTemp}℃`);
   currentWeatherBody.append(currentTempEl);
 
   // Code to Display current WindSpeed
   let currentWindSpeedEl = $("<div>");
-  currentWindSpeedEl.text(`Wind Speed : ${currentWindSpd}km/h`)
+  currentWindSpeedEl.text(`Wind Speed : ${currentWindSpd}km/h`);
   currentWeatherBody.append(currentWindSpeedEl);
 
   // Code to Display Wind direction
   let currentWindDirEl = $("<div>");
-  currentWindDirEl.text(`Wind Direction: ${currentWindDirection}`)
+  currentWindDirEl.text(`Wind Direction: ${currentWindDirection}`);
   currentWeatherBody.append(currentWindDirEl);
 
   // Code to Display Humidity
   let currentHumidityEl = $("<div>");
-  currentHumidityEl.text(`Humidity: ${currentHumidity}%`)
+  currentHumidityEl.text(`Humidity: ${currentHumidity}%`);
   currentWeatherBody.append(currentHumidityEl);
 
   // Code to Display UV Index
   let currentUVIndexEL = $("<div>");
-  currentUVIndexEL.text(`UV Index: ${currentUVI}`)
+  currentUVIndexEL.text(`UV Index: ${currentUVI}`);
   currentWeatherBody.append(currentUVIndexEL);
 
 
@@ -229,8 +211,13 @@ function displaySearchHistory () {
     searchedCity.addClass("btn btn-outline-info w-100 m-1")
     searchedCity.text(searchedCityArray[i].cityName);
     searchedCity.css({"text-transform":"capitalize"});
-    searchedCity.attr("data-city", JSON.stringify(currentCityInfo));
+    searchedCity.attr("data-city", currentCityInfo.cityName);
     historyContainer.append(searchedCity);
     };
   };
+};
+
+function searchPastCity(searchedCity) {
+  
+
 };
