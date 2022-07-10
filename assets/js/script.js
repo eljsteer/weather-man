@@ -88,7 +88,7 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   // Code to display Selected Cities Current Weather Today
   // Bootstrap container Styling for Weather Today 
   let currentWContainer =$("#current-container");
-  currentWContainer.addClass("card col-9 mx-3");
+  currentWContainer.addClass("card col-9 mx-3 h-100");
   let currentWHeader = $("#current-header");
   currentWHeader.html("");
   let currentWeatherBody = $("#current-body");
