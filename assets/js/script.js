@@ -10,7 +10,10 @@ let apiKey = "c21a2246b95017f0e7609338479f2597";
 let currentCityInfo = {};
 let storeCityArray = [];
 
-searchBttn.on("click", cityCoordinates);
+searchBttn.on("click", function(event){
+  let selectedCity = cityInputEl.val().trim();
+  cityCoordinates(selectedCity);
+});
 
 searchHistoryContainer.on("click", function(event) {
   console.log(event.target.innerHTML);
@@ -20,17 +23,8 @@ searchHistoryContainer.on("click", function(event) {
 
 displaySearchHistory();
 
-function cityCoordinates(pastCitySearch, cityInputEl) {
-  
-  if (cityInputEl === null) {
-    selectedCity = pastCitySearch;
-    cityAPICall(selectedCity);
-  } else {
-      selectedCity = cityInputEl.val().trim();
-      cityInputEl.val("");
-      cityAPICall(selectedCity);
-    };  
-    
+function cityCoordinates(selectedCity) {
+
     let cityCoordAPIURL = "https://api.openweathermap.org/data/2.5/weather?q="+selectedCity+"&units=metric&appid="+apiKey;
     fetch (cityCoordAPIURL) 
     .then(function (response) {
