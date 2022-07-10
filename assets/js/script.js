@@ -91,10 +91,10 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   currentWContainer.addClass("card col-9 mx-3 mb-3 h-100");
   let currentWHeader = $("#current-header");
   currentWHeader.html("");
+  currentWHeader.addClass("card-body d-flex flex-row px-3 pt-3 pb-1");
   let currentWeatherBody = $("#current-body");
   currentWeatherBody.html("");
-  currentWHeader.addClass("card-body d-flex flex-row");
-  currentWeatherBody.addClass("card-body");
+  currentWeatherBody.addClass("card-body px-3 pt-1 pb-3");
 
   // Code to display city Name and Time
   let weatherTodayEl = $("<div>");
@@ -102,6 +102,7 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   let currentTimeEl = $("<h5>");
   currentTimeEl.text(timeNow);
   currentCityNameEl.text(currentCityInfo.cityName);
+  currentCityNameEl.css({"text-transform":"capitalize"});
   weatherTodayEl.append(currentCityNameEl);
   weatherTodayEl.append(currentTimeEl);
   currentWHeader.append(weatherTodayEl);
@@ -143,6 +144,7 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
 
   // Code to Dynamically create Forecast Container styling
   let forecastContainer = $("#forecast-container");
+  forecastContainer.html("");
   forecastContainer.addClass("card col-9 mx-3");
   let forecastHeader = $("<h5>");
   forecastHeader.addClass("card-header");
@@ -164,7 +166,6 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
     const dailyUnixDate = dataDaily[i].dt;
     const dailyConvDate = new Date(dailyUnixDate*1000)
     const dailyDate = dayjs(dailyConvDate).format("DD/MM/YYYY");
-    console.log(dailyDate);
 
     // Daily Weather Data
     let dailyIconCode = dataDaily[i].weather[0].icon;
@@ -206,7 +207,6 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
     dailyCard.append(dailyCardBody);
     forecastCardDeck.append(dailyCard);
   };
-
 };
 
 function storeSearchHistory (currentCityInfo) {
@@ -228,6 +228,8 @@ function displaySearchHistory () {
     let searchedCity = $("<button>");
     searchedCity.addClass("btn btn-outline-info w-100 m-1")
     searchedCity.text(searchedCityArray[i].cityName);
+    searchedCity.css({"text-transform":"capitalize"});
+    searchedCity.attr("data-city", JSON.stringify(currentCityInfo));
     historyContainer.append(searchedCity);
     };
   };
