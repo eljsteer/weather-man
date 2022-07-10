@@ -84,13 +84,15 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   let currentWindDirection = dataCurrent.wind_deg;
   let currentHumidity = dataCurrent.humidity;
   let currentUVI = dataCurrent.uvi;
-  let currentWeatherBody = $("#current-body");
 
   // Code to display Selected Cities Current Weather Today
   // Bootstrap container Styling for Weather Today 
   let currentWContainer =$("#current-container");
-  let currentWHeader = $("#current-header");
   currentWContainer.addClass("card col-9 mx-3");
+  let currentWHeader = $("#current-header");
+  currentWHeader.html("");
+  let currentWeatherBody = $("#current-body");
+  currentWeatherBody.html("");
   currentWHeader.addClass("card-body d-flex flex-row");
   currentWeatherBody.addClass("card-body");
 
@@ -190,11 +192,15 @@ function displaySearchHistory () {
   let historyContainer = $("#search-history-container");
   historyContainer.html("");
   if (localStorage.getItem("searchHistory") !== null) {
+    let searchBody = $("#search-body");
+    searchBody.css("border-bottom","2px solid black");
+    historyContainer.addClass("card-body mx-3 p-2")
     let searchedCityArray = JSON.parse(localStorage.getItem("searchHistory"));
     for (let i = 0; i < searchedCityArray.length; i++) {
-    let cityHistorical = $("<button>");
-    cityHistorical.text(searchedCityArray[i].cityName);
-    historyContainer.append(cityHistorical);
+    let searchedCity = $("<button>");
+    searchedCity.addClass("btn btn-outline-info w-100 m-1")
+    searchedCity.text(searchedCityArray[i].cityName);
+    historyContainer.append(searchedCity);
     };
   };
 };

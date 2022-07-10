@@ -28,14 +28,13 @@
   <div class="container-fluid">
     <div class="row">
       <div class="card text-center col-lg-2 mx-3">
-        <div class="card-body">
+        <div id=search-body class="card-body">
           <h5 class="card-title">Search for a City:</h5>
           <div class="form-outline">
             <input type="text" id="city-input" placeholder="Type City Here..." class="form-control"/>
             <label class="form-label" for="form1"></label>
           </div>
           <button type="button" id="search-bttn" class="btn btn-primary w-100">Search</button>
-          <div id="search-history-container"></div>
           <!-- <div id="userLoc" class="userLoc form-check">
             <input id="my-location" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
             <label class="form-check-label" for="flexCheckDefault">Use my Location</label>
@@ -48,8 +47,8 @@
             </div>
           </div> -->
         </div>
+        <div id="search-history-container"></div>
       </div>
-
       <div id="current-container">
         <div id="current-header"></div> 
         <div id="current-body"></div> 
