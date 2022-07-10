@@ -88,7 +88,7 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   // Code to display Selected Cities Current Weather Today
   // Bootstrap container Styling for Weather Today 
   let currentWContainer =$("#current-container");
-  currentWContainer.addClass("card col-9 mx-3 h-100");
+  currentWContainer.addClass("card col-9 mx-3 mb-3 h-100");
   let currentWHeader = $("#current-header");
   currentWHeader.html("");
   let currentWeatherBody = $("#current-body");
@@ -108,7 +108,9 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   
     // Code to append Weather Icon
     let currentWeatherIcon = $("<img>");
-    currentWeatherIcon.attr("src", "https://openweathermap.org/img/w/" + currentIconCode + ".png");
+    currentWeatherIcon.attr({
+      src: "https://openweathermap.org/img/w/" + currentIconCode + ".png",
+    }).height(50).width(50);
     currentWHeader.append(currentWeatherIcon);
 
   // Code to Display currentTemp
@@ -137,47 +139,73 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   currentWeatherBody.append(currentUVIndexEL);
 
 
-  // <==========Code to dynamically generate 5day Forecast ==========>//
-  
-  // // Date Conversions
-  // const dailyUnixDate = dataDaily[i].dt;
-  // const dailyConvDate = new Date(dailyUnixDate*1000)
-  // const dailyDate = dayjs(dailyConvDate).format("DD/MM/YYYY");
-  // console.log(dailyDate);
+// <==========Code to dynamically generate 5day Forecast ==========>//
 
-  // // Code to Dynamically create Forecast Container styling
-  // let forecastContainer = $("#forecast-container");
-  // forecastContainer.addClass("card col-9 mx-3");
-  // let forecastHeader = $("<h5>");
-  // forecastHeader.addClass("card-header");
-  // let forecastCardBody = $("<div>");
-  // forecastCardBody.addClass("card-body");
-  // let forecastCardDeck = $("<div>");
-  // forecastCardDeck.addClass("card-deck");
+  // Code to Dynamically create Forecast Container styling
+  let forecastContainer = $("#forecast-container");
+  forecastContainer.addClass("card col-9 mx-3");
+  let forecastHeader = $("<h5>");
+  forecastHeader.addClass("card-header");
+  forecastHeader.text("5 Day Forecast:");
+  let forecastCardBody = $("<div>");
+  forecastCardBody.addClass("card-body");
+  let forecastCardDeck = $("<div>");
+  forecastCardDeck.addClass("card-deck");
 
-  // forecastCardBody.append(forecastCardDeck);
-  // forecastContainer.append(forecastHeader);
-  // forecastContainer.append(forecastCardBody);
+  forecastCardBody.append(forecastCardDeck);
+  forecastContainer.append(forecastHeader);
+  forecastContainer.append(forecastCardBody);
 
-  // // ForLoop to dynamically display 5day forecast
-  // let dailyIconCode = dataDaily[i].weather[0].icon;
-  // let dailyTemp = dataDaily[i].temp.day;
-  // let dailyWindSpd = dataDaily[i].wind_speed;
-  // let dailyHumidity = dataDaily[i].humidity;
+  // ForLoop to dynamically display 5day forecast
 
-  // for (i=0; i < dataDaily.length-3; i++) {;
 
-  // // Code to Dynamically create Daily Forecast Cards
-  // let dailyCard = $("<div>");
-  // dailyCard.addClass("card");
-  // let dailyCardTitle = $("<h6>");
-  // dailyCardTitle.addClass("card-title");
-  // let dailyCardIcon = $("<img>");
-  // dailyCardIcon.attr("src", "https://openweathermap.org/img/w/" + dailyIconCode + ".png");
-  // let dailyCardBody = $("<div>");
-  // let dailyTempEl = $
-  // currentTempEl.text(`Temperature: ${currentTemp}℃`)
-  // };
+  for (i=1; i < dataDaily.length-2; i++) {
+    // Date Conversions
+    const dailyUnixDate = dataDaily[i].dt;
+    const dailyConvDate = new Date(dailyUnixDate*1000)
+    const dailyDate = dayjs(dailyConvDate).format("DD/MM/YYYY");
+    console.log(dailyDate);
+
+    // Daily Weather Data
+    let dailyIconCode = dataDaily[i].weather[0].icon;
+    let dailyTemp = dataDaily[i].temp.day;
+    let dailyWindSpeed = dataDaily[i].wind_speed;
+    let dailyHumidity = dataDaily[i].humidity;
+    // Code to Dynamically create Daily Forecast Cards
+    let dailyCard = $("<div>");
+    dailyCard.addClass("card p-2 m-2");
+
+    let dailyCardTitle = $("<h6>");
+    dailyCardTitle.addClass("card-title");
+    dailyCardTitle.text(dailyDate);
+    dailyCard.append(dailyCardTitle);
+    
+    let dailyCardIcon = $("<img>");
+    dailyCardIcon.attr({
+      src: "https://openweathermap.org/img/w/" + dailyIconCode + ".png",
+    }).height(50).width(50);
+    
+    dailyCard.append(dailyCardIcon);
+
+    let dailyCardBody = $("<div>");
+    
+    // Code to Add in all daily Weather Data
+    let dailyTempEl = $("<div>");
+    dailyTempEl.text(`Temperature: ${dailyTemp}℃`);
+    dailyCardBody.append(dailyTempEl);
+    dailyCard.append(dailyCardBody);
+    
+    let dailyWindSpeedEl = $("<div>");
+    dailyWindSpeedEl.text(`Wind Speed: ${dailyWindSpeed}km/h`);
+    dailyCardBody.append(dailyWindSpeedEl);
+    
+    let dailyHumidityEl = $("<div>");
+    dailyHumidityEl.text(`Humidity: ${dailyHumidity}%`);
+    dailyCardBody.append(dailyHumidityEl);
+
+    dailyCard.append(dailyCardBody);
+    forecastCardDeck.append(dailyCard);
+  };
 
 };
 
