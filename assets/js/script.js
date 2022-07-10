@@ -22,7 +22,6 @@ displaySearchHistory();
 
 function cityCoordinates(pastCitySearch, cityInputEl) {
   
-  function citySearch(pastCitySearch) {
   if (cityInputEl === null) {
     selectedCity = pastCitySearch;
     cityAPICall(selectedCity);
@@ -31,9 +30,7 @@ function cityCoordinates(pastCitySearch, cityInputEl) {
       cityInputEl.val("");
       cityAPICall(selectedCity);
     };  
-  }; citySearch(pastCitySearch);
     
-  function cityAPICall(selectedCity) {
     let cityCoordAPIURL = "https://api.openweathermap.org/data/2.5/weather?q="+selectedCity+"&units=metric&appid="+apiKey;
     fetch (cityCoordAPIURL) 
     .then(function (response) {
@@ -51,7 +48,6 @@ function cityCoordinates(pastCitySearch, cityInputEl) {
 
       weatherData(currentCityInfo);
     });
-  };
 };
 
   // <======== Code to fetch and display 5day Weather Forecast ========>
