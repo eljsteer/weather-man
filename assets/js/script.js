@@ -27,8 +27,11 @@ let apiKey = "c21a2246b95017f0e7609338479f2597";
 // const myLocation = $("#my-location")
 // let cityArray = [];
 let currentCityInfo = {};
+let storeCityArray = [];
 
 searchBttn.on("click", cityCoordinates);
+
+displaySearchHistory();
 
 function cityCoordinates() {
   selectedCity = cityInputEl.val().trim();
@@ -69,7 +72,8 @@ function weatherData(currentCityInfo) {
       console.log(data);
       let dataCurrent = data.current;
       let dataDaily = data.daily;
-      displayWeather(currentCityInfo, dataCurrent,dataDaily)
+      displayWeather(currentCityInfo, dataCurrent,dataDaily);
+      storeSearchHistory(currentCityInfo);
     });
 };
 
@@ -80,13 +84,13 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   let currentWindDirection = dataCurrent.wind_deg;
   let currentHumidity = dataCurrent.humidity;
   let currentUVI = dataCurrent.uvi;
-  let currentWeatherBody = $("#weather-today-body");
+  let currentWeatherBody = $("#current-body");
 
   // Code to display Selected Cities Current Weather Today
   // Bootstrap container Styling for Weather Today 
-  let currentWeatherContainer =$("#weather-today-container");
-  let currentWHeader = $("#weather-today-header");
-  currentWeatherContainer.addClass("card col-9 mx-3");
+  let currentWContainer =$("#current-container");
+  let currentWHeader = $("#current-header");
+  currentWContainer.addClass("card col-9 mx-3");
   currentWHeader.addClass("card-body d-flex flex-row");
   currentWeatherBody.addClass("card-body");
 
@@ -133,16 +137,64 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
 
   // <==========Code to dynamically generate 5day Forecast ==========>//
   
-  // Date Conversions
-  const dailyUnixDate = dataDaily[i].dt;
-  const dailyConvDate = new Date(dailyUnixDate*1000)
-  const dailyDate = dayjs(dailyConvDate).format("DD/MM/YYYY");
-  console.log(dailyDate);
+  // // Date Conversions
+  // const dailyUnixDate = dataDaily[i].dt;
+  // const dailyConvDate = new Date(dailyUnixDate*1000)
+  // const dailyDate = dayjs(dailyConvDate).format("DD/MM/YYYY");
+  // console.log(dailyDate);
 
-  // ForLoop to dynamically display 5day forecast
-  let dailyTemp = dataDaily[i].temp.day;
-  let dailyWindSpd = dataDaily[i].wind_speed;
-  let dailyHumidity = dataDaily[i].humidity;
-  // for (i=0; i < dataDaily.length; i++);
+  // // Code to Dynamically create Forecast Container styling
+  // let forecastContainer = $("#forecast-container");
+  // forecastContainer.addClass("card col-9 mx-3");
+  // let forecastHeader = $("<h5>");
+  // forecastHeader.addClass("card-header");
+  // let forecastCardBody = $("<div>");
+  // forecastCardBody.addClass("card-body");
+  // let forecastCardDeck = $("<div>");
+  // forecastCardDeck.addClass("card-deck");
 
+  // forecastCardBody.append(forecastCardDeck);
+  // forecastContainer.append(forecastHeader);
+  // forecastContainer.append(forecastCardBody);
+
+  // // ForLoop to dynamically display 5day forecast
+  // let dailyIconCode = dataDaily[i].weather[0].icon;
+  // let dailyTemp = dataDaily[i].temp.day;
+  // let dailyWindSpd = dataDaily[i].wind_speed;
+  // let dailyHumidity = dataDaily[i].humidity;
+
+  // for (i=0; i < dataDaily.length-3; i++) {;
+
+  // // Code to Dynamically create Daily Forecast Cards
+  // let dailyCard = $("<div>");
+  // dailyCard.addClass("card");
+  // let dailyCardTitle = $("<h6>");
+  // dailyCardTitle.addClass("card-title");
+  // let dailyCardIcon = $("<img>");
+  // dailyCardIcon.attr("src", "https://openweathermap.org/img/w/" + dailyIconCode + ".png");
+  // let dailyCardBody = $("<div>");
+  // let dailyTempEl = $
+  // currentTempEl.text(`Temperature: ${currentTemp}℃`)
+  // };
+
+};
+
+function storeSearchHistory (currentCityInfo) {
+  storeCityArray.push(currentCityInfo);
+  localStorage.setItem("searchHistory",JSON.stringify(storeCityArray));
+  console.log(storeCityArray);
+  displaySearchHistory();
+};
+
+function displaySearchHistory () {
+  let historyContainer = $("#search-history-container");
+  historyContainer.html("");
+  if (localStorage.getItem("searchHistory") !== null) {
+    let searchedCityArray = JSON.parse(localStorage.getItem("searchHistory"));
+    for (let i = 0; i < searchedCityArray.length; i++) {
+    let cityHistorical = $("<button>");
+    cityHistorical.text(searchedCityArray[i].cityName);
+    historyContainer.append(cityHistorical);
+    };
+  };
 };
