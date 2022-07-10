@@ -74,16 +74,13 @@ function weatherData(currentCityInfo) {
 };
 
 function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
-  let iconcode = dataCurrent.weather[0].icon;
+  let currentIconCode = dataCurrent.weather[0].icon;
   let currentTemp = dataCurrent.temp;
   let currentWindSpd = dataCurrent.wind_speed;
   let currentWindDirection = dataCurrent.wind_deg;
   let currentHumidity = dataCurrent.humidity;
   let currentUVI = dataCurrent.uvi;
   let currentWeatherBody = $("#weather-today-body");
-  
-  // let currentWeatherArray = [];
-  // currentWeatherArray.push[currentTemp,currentWindSpd,currentWindDirection,currentHumidity,currentUVI]
 
   // Code to display Selected Cities Current Weather Today
   // Bootstrap container Styling for Weather Today 
@@ -91,7 +88,7 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   let currentWHeader = $("#weather-today-header");
   currentWeatherContainer.addClass("card col-9 mx-3");
   currentWHeader.addClass("card-body d-flex flex-row");
-  currentWeatherBody.addClass("card-body")
+  currentWeatherBody.addClass("card-body");
 
   // Code to display city Name and Time
   let weatherTodayEl = $("<div>");
@@ -105,9 +102,8 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   
     // Code to append Weather Icon
     let currentWeatherIcon = $("<img>");
-    currentWeatherIcon.attr("src", "https://openweathermap.org/img/w/" + iconcode + ".png")
+    currentWeatherIcon.attr("src", "https://openweathermap.org/img/w/" + currentIconCode + ".png");
     currentWHeader.append(currentWeatherIcon);
-
 
   // Code to Display currentTemp
   let currentTempEl = $("<div>");
@@ -133,4 +129,20 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   let currentUVIndexEL = $("<div>");
   currentUVIndexEL.text(`UV Index: ${currentUVI}`)
   currentWeatherBody.append(currentUVIndexEL);
+
+
+  // <==========Code to dynamically generate 5day Forecast ==========>//
+  
+  // Date Conversions
+  const dailyUnixDate = dataDaily[i].dt;
+  const dailyConvDate = new Date(dailyUnixDate*1000)
+  const dailyDate = dayjs(dailyConvDate).format("DD/MM/YYYY");
+  console.log(dailyDate);
+
+  // ForLoop to dynamically display 5day forecast
+  let dailyTemp = dataDaily[i].temp.day;
+  let dailyWindSpd = dataDaily[i].wind_speed;
+  let dailyHumidity = dataDaily[i].humidity;
+  // for (i=0; i < dataDaily.length; i++);
+
 };
