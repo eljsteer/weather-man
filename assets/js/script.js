@@ -87,8 +87,10 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
 
   // Code to display Selected Cities Current Weather Today
   // Bootstrap container Styling for Weather Today 
-  let currentWeatherEl = $("#weather-today-header")
-  currentWeatherEl.addClass("card col-9 mx-3 row");
+  let currentWeatherContainer =$("#weather-today-container");
+  let currentWHeader = $("#weather-today-header");
+  currentWeatherContainer.addClass("card col-9 mx-3");
+  currentWHeader.addClass("card-body d-flex flex-row");
   currentWeatherBody.addClass("card-body")
 
   // Code to display city Name and Time
@@ -97,15 +99,14 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   let currentTimeEl = $("<h5>");
   currentTimeEl.text(timeNow);
   currentCityNameEl.text(currentCityInfo.cityName);
-
   weatherTodayEl.append(currentCityNameEl);
   weatherTodayEl.append(currentTimeEl);
-  currentWeatherEl.append(weatherTodayEl);
+  currentWHeader.append(weatherTodayEl);
   
     // Code to append Weather Icon
     let currentWeatherIcon = $("<img>");
     currentWeatherIcon.attr("src", "https://openweathermap.org/img/w/" + iconcode + ".png")
-    currentWeatherEl.append(currentWeatherIcon);
+    currentWHeader.append(currentWeatherIcon);
 
 
   // Code to Display currentTemp
@@ -130,6 +131,6 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
 
   // Code to Display UV Index
   let currentUVIndexEL = $("<div>");
-  currentUVIndexEL.text(`Current Temp: ${currentTemp}`)
-  currentWeatherBody.append(currentTempEl);
+  currentUVIndexEL.text(`UV Index: ${currentUVI}`)
+  currentWeatherBody.append(currentUVIndexEL);
 };
