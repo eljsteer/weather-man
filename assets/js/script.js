@@ -25,6 +25,7 @@ searchHistoryContainer.on("click", function(event) {
 
 displaySearchHistory();
 
+// <======== Code to fetch OpenWeatherAPI Latitide and longitude from Cities searched ========>
 function cityCoordinates(selectedCity) {
 
     let cityCoordAPIURL = "https://api.openweathermap.org/data/2.5/weather?q="+selectedCity+"&units=metric&appid="+apiKey;
@@ -67,7 +68,7 @@ function weatherData(currentCityInfo) {
       storeSearchHistory(currentCityInfo);
     });
 };
-
+// Function to display current weather today from user Search
 function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   let currentIconCode = dataCurrent.weather[0].icon;
   let currentTemp = dataCurrent.temp;
@@ -206,12 +207,11 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
     dailyCardTitle.addClass("card-title");
     dailyCardTitle.text(dailyDate);
     dailyCard.append(dailyCardTitle);
-    
+    // Code to add the weather Icon
     let dailyCardIcon = $("<img>");
     dailyCardIcon.attr({
       src: "https://openweathermap.org/img/w/" + dailyIconCode + ".png",
     }).height(50).width(50);
-    
     dailyCard.append(dailyCardIcon);
 
     let dailyCardBody = $("<div>");
@@ -234,14 +234,14 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
     forecastCardDeck.append(dailyCard);
   };
 };
-
+// Code to save Cities Searched to Local Storage
 function storeSearchHistory (currentCityInfo) {
   storeCityArray.push(currentCityInfo);
   localStorage.setItem("searchHistory",JSON.stringify(storeCityArray));
   console.log(storeCityArray);
   displaySearchHistory(currentCityInfo);
 };
-
+// Code to display Cities Searched once retrieved from Local Storage
 function displaySearchHistory () {
   let historyContainer = $("#search-history-container");
   historyContainer.html("");
