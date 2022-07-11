@@ -77,13 +77,13 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   // Code to display Selected Cities Current Weather Today
   // Bootstrap container Styling for Weather Today 
   let currentWContainer =$("#current-container");
-  currentWContainer.addClass("card col-9 mx-3 mb-3 h-100");
+  currentWContainer.addClass("card");
   let currentWHeader = $("#current-header");
   currentWHeader.html("");
-  currentWHeader.addClass("card-body d-flex flex-row px-3 pt-3 pb-1");
+  currentWHeader.addClass("card-body d-flex flex-row");
   let currentWeatherBody = $("#current-body");
   currentWeatherBody.html("");
-  currentWeatherBody.addClass("card-body px-3 pt-1 pb-3");
+  currentWeatherBody.addClass("card-body");
 
   // Code to display city Name and Time
   let weatherTodayEl = $("<div>");
@@ -129,7 +129,7 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   let currentUVIndexNum = $("<span>");
   currentUVIndexNum.html(currentUVI);
   currentUVIndexNum.css({"width":"auto","border-radius":"2px", "padding-left":"5px","padding-right":"5px"});
-  currentUVIndexEL.html ("UV Index: ");
+  currentUVIndexEL.text ("UV Index: ");
   currentUVIndexEL.append(currentUVIndexNum);
   currentWeatherBody.append(currentUVIndexEL);
 
@@ -150,7 +150,7 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   // Code to Dynamically create Forecast Container styling
   let forecastContainer = $("#forecast-container");
   forecastContainer.html("");
-  forecastContainer.addClass("card col-9 mx-3");
+  forecastContainer.addClass("card");
   let forecastHeader = $("<h5>");
   forecastHeader.addClass("card-header");
   forecastHeader.text("5 Day Forecast:");

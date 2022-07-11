@@ -32,9 +32,12 @@
 
 .hero-text {
   text-align: center;
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, 0%);
+  position: relative;
+  top: -70px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   color: black;
+}
+
+#weather-container-body {
+  margin-top: 10px;
 }
