@@ -21,3 +21,20 @@
 .btn {
   font-weight: bold;
 }
+
+.hero-image {
+  background-image: url("assets/media/weather-cover1.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.hero-text {
+  text-align: center;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  color: black;
+}

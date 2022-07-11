@@ -129,7 +129,7 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   let currentUVIndexNum = $("<span>");
   currentUVIndexNum.html(currentUVI);
   currentUVIndexNum.css({"width":"auto","border-radius":"2px", "padding-left":"5px","padding-right":"5px"});
-  currentUVIndexEL.html("UV Index: ");
+  currentUVIndexEL.html ("UV Index: ");
   currentUVIndexEL.append(currentUVIndexNum);
   currentWeatherBody.append(currentUVIndexEL);
 
