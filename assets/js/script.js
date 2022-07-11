@@ -1,4 +1,5 @@
 const searchBttn = $("#search-bttn");
+const clearBttn = $("#clear-bttn");
 const searchHistoryContainer = $("#search-history-container");
 
 let cityInputEl = $("#city-input");
@@ -10,6 +11,7 @@ let apiKey = "c21a2246b95017f0e7609338479f2597";
 let currentCityInfo = {};
 let storeCityArray = [];
 
+// event listener for search searchButton to Call APIs for user searched city
 searchBttn.on("click", function(event){
   let selectedCity = cityInputEl.val().trim();
   cityCoordinates(selectedCity);
@@ -173,6 +175,7 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   let forecastHeader = $("<h5>");
   forecastHeader.addClass("card-header");
   forecastHeader.text("5 Day Forecast:");
+  forecastHeader.css({"background-color":"#01608b", "color": "white"});
   let forecastCardBody = $("<div>");
   forecastCardBody.addClass("card-body");
   let forecastCardDeck = $("<div>");
@@ -183,8 +186,6 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   forecastContainer.append(forecastCardBody);
 
   // ForLoop to dynamically display 5day forecast
-
-
   for (i=1; i < dataDaily.length-2; i++) {
     // Date Conversions
     const dailyUnixDate = dataDaily[i].dt;
@@ -199,6 +200,7 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
     // Code to Dynamically create Daily Forecast Cards
     let dailyCard = $("<div>");
     dailyCard.addClass("card p-2 m-2");
+    dailyCard.css("background-color","#ddf5fa");
 
     let dailyCardTitle = $("<h6>");
     dailyCardTitle.addClass("card-title");
@@ -243,18 +245,32 @@ function storeSearchHistory (currentCityInfo) {
 function displaySearchHistory () {
   let historyContainer = $("#search-history-container");
   historyContainer.html("");
+  let searchBody = $("#search-body");
   if (localStorage.getItem("searchHistory") !== null) {
-    let searchBody = $("#search-body");
+    clearBttn.removeClass("hide");
+    clearBttn.addClass("show");
     searchBody.css("border-bottom","2px solid black");
     historyContainer.addClass("card-body mx-3 p-2")
     let searchedCityArray = JSON.parse(localStorage.getItem("searchHistory"));
     for (let i = 0; i < searchedCityArray.length; i++) {
     let searchedCity = $("<button>");
-    searchedCity.addClass("btn btn-outline-info w-100 m-1")
+    searchedCity.addClass("btn btn-outline-info w-75 m-1")
     searchedCity.text(searchedCityArray[i].cityName);
     searchedCity.css({"text-transform":"capitalize"});
     searchedCity.attr("data-city", searchedCityArray[i].cityName);
     historyContainer.append(searchedCity);
     };
   };
+    // function to clear search history
+    function clearSearchHistory() {
+      localStorage.clear();
+      searchedCityArray = [];
+      historyContainer.html("");
+      searchBody.css("border-bottom","0px");
+      clearBttn.removeClass("show");
+      clearBttn.addClass("hide");
+    };
+  // event listener for clear search history
+  clearBttn.on("click", clearSearchHistory);
 };
+
