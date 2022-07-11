@@ -125,9 +125,25 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
 
   // Code to Display UV Index
   let currentUVIndexEL = $("<div>");
-  currentUVIndexEL.text(`UV Index: ${currentUVI}`);
+  currentUVIndexEL.addClass("d-flex flex-row");
+  let currentUVIndexNum = $("<span>");
+  currentUVIndexNum.html(currentUVI);
+  currentUVIndexNum.css({"width":"auto","border-radius":"2px", "padding-left":"5px","padding-right":"5px"});
+  currentUVIndexEL.html("UV Index: ");
+  currentUVIndexEL.append(currentUVIndexNum);
   currentWeatherBody.append(currentUVIndexEL);
 
+  if(currentUVI < 3) {
+    currentUVIndexNum.css("background-color", "green");
+  } else if ( currentUVI >= 3 && currentUVI < 6) {
+    currentUVIndexNum.css("background-color","yellow");
+  } else if (currentUVI >= 6 && currentUVI < 8) {
+    currentUVIndexNum.css("background-color","orange");
+  } else if (currentUVI >= 8 && currentUVI < 11 ) {
+    currentUVIndexNum.css("background-color","red");
+  } else if (currentUVI >= 11) {
+    currentUVIndexNum.css("background-color","darkviolet");
+  }
 
 // <==========Code to dynamically generate 5day Forecast ==========>//
 
