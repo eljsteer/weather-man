@@ -80,10 +80,10 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   currentWContainer.addClass("card");
   let currentWHeader = $("#current-header");
   currentWHeader.html("");
-  currentWHeader.addClass("card-body d-flex flex-row");
+  currentWHeader.addClass("card-body d-flex flex-row pb-1");
   let currentWeatherBody = $("#current-body");
   currentWeatherBody.html("");
-  currentWeatherBody.addClass("card-body");
+  currentWeatherBody.addClass("card-body pt-1");
 
   // Code to display city Name and Time
   let weatherTodayEl = $("<div>");
@@ -115,7 +115,25 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
 
   // Code to Display Wind direction
   let currentWindDirEl = $("<div>");
-  currentWindDirEl.text(`Wind Direction: ${currentWindDirection}`);
+  if( currentWindDirection >= 0 && currentWindDirection <= 22.5) {
+    currentWindDirEl.text("Wind Direction: N");
+  } else if ( currentWindDirection > 22.5 && currentWindDirection <= 67.5) {
+    currentWindDirEl.text("Wind Direction: NE");
+  } else if (currentWindDirection > 67.5 && currentWindDirection <= 112.5) {
+    currentWindDirEl.text("Wind Direction: E");
+  } else if (currentWindDirection > 112.5 && currentWindDirection <= 157.5 ) {
+    currentWindDirEl.text("Wind Direction: SE");
+  } else if (currentWindDirection > 157.5 && currentWindDirection <= 202.5 ) {
+    currentWindDirEl.text("Wind Direction: S");
+  } else if (currentWindDirection > 202.5 && currentWindDirection <= 247.5 ) {
+    currentWindDirEl.text("Wind Direction: SW");
+  } else if (currentWindDirection > 247.5 && currentWindDirection <= 292.5 ) {
+    currentWindDirEl.text("Wind Direction: W");
+  } else if (currentWindDirection > 292.5 && currentWindDirection <= 332.5 ) {
+    currentWindDirEl.text("Wind Direction: NW");
+  } else if (currentWindDirection > 332.5) {
+    currentWindDirEl.text("Wind Direction: N");
+  };
   currentWeatherBody.append(currentWindDirEl);
 
   // Code to Display Humidity
@@ -128,11 +146,12 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
   currentUVIndexEL.addClass("d-flex flex-row");
   let currentUVIndexNum = $("<span>");
   currentUVIndexNum.html(currentUVI);
-  currentUVIndexNum.css({"width":"auto","border-radius":"2px", "padding-left":"5px","padding-right":"5px"});
+  currentUVIndexNum.css({"width":"auto","border-radius":"2px", "padding-left":"5px","padding-right":"5px", "margin-left": "5px"});
   currentUVIndexEL.text ("UV Index: ");
   currentUVIndexEL.append(currentUVIndexNum);
   currentWeatherBody.append(currentUVIndexEL);
 
+  // Code to Display UV alert color dependent on the varying UV levels
   if(currentUVI < 3) {
     currentUVIndexNum.css("background-color", "green");
   } else if ( currentUVI >= 3 && currentUVI < 6) {
@@ -143,14 +162,14 @@ function displayWeather (currentCityInfo, dataCurrent, dataDaily) {
     currentUVIndexNum.css("background-color","red");
   } else if (currentUVI >= 11) {
     currentUVIndexNum.css("background-color","darkviolet");
-  }
+  };
 
 // <==========Code to dynamically generate 5day Forecast ==========>//
 
   // Code to Dynamically create Forecast Container styling
   let forecastContainer = $("#forecast-container");
   forecastContainer.html("");
-  forecastContainer.addClass("card");
+  forecastContainer.addClass("card my-3");
   let forecastHeader = $("<h5>");
   forecastHeader.addClass("card-header");
   forecastHeader.text("5 Day Forecast:");
